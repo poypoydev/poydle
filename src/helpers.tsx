@@ -1,15 +1,31 @@
+const countLetters = (answer: string) => {
+  const letterMap = new Map<string, number>();
+  answer.split("").forEach((val) => {
+    letterMap.set(val, (letterMap.get(val) || 0) + 1);
+  });
+  return letterMap;
+};
+
 export const getLevelOfCorrection = (
   index: number,
   RIGHT_ANSWER: string,
-  letter: string
+  letter: string,
+  indexMap: Map<string, number[]>,
+  letterMap: Map<string, number>
 ): string => {
   if (letter.length === 0) return " border-border border-2";
 
   if (RIGHT_ANSWER.split("")[index] === letter) return "bg-[#538D4E] ";
   if (RIGHT_ANSWER.includes(letter)) {
+    const numberOfLetters = letterMap.get(letter) || 0;
+    const lengthOfIndexArray = indexMap.get(letter)?.length || 0;
+    if (lengthOfIndexArray < numberOfLetters) {
+      indexMap.set(letter, [...(indexMap.get(letter) || []), index]);
+      return "bg-[#B59F3B]";
+    }
+    return "bg-border";
     //   letterMap.set(val, (letterMap.get(val) || 0) + 1);
-
-    return "bg-[#B59F3B]";
+    // yellow
   }
 
   return "bg-border";
@@ -82,7 +98,8 @@ const GridRow = ({
   for (let i = 0; i < needed; i++) {
     newArr.push("");
   }
-
+  const indexMap = new Map<string, number[]>();
+  const letterMap = countLetters(answer);
   return (
     <div className="w-[85%]   h-10  flex justify-center gap-2 my-1   ">
       {newArr.map((val, index) => {
@@ -91,7 +108,7 @@ const GridRow = ({
             className={` ${
               current
                 ? "border-border border-2"
-                : getLevelOfCorrection(index, answer, val)
+                : getLevelOfCorrection(index, answer, val, indexMap, letterMap)
             }  flex items-center justify-center   rounded-sm w-52     h-52 `}
           >
             <h1 className="font-bold text-2xl">{val.toUpperCase()}</h1>
