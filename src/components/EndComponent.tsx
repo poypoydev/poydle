@@ -22,7 +22,7 @@ const EndComponent = ({
         initial={{ marginTop: 20, opacity: 0 }}
         animate={{ opacity: 1, marginTop: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="fixed left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%] w-[80%] py-12 flex justify-center flex-wrap py-3  border-border border-2 bg-background"
+        className="fixed left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%] md:w-[30%] md:py-12 w-[80%]  flex justify-center flex-wrap py-3  border-border border-2 bg-background"
       >
         <h1 className="text-4xl  text-center">You Already played today.</h1>
       </motion.div>
@@ -34,7 +34,7 @@ const EndComponent = ({
       initial={{ marginTop: 20, opacity: 0 }}
       animate={{ opacity: 1, marginTop: 0 }}
       transition={{ duration: 0.8, delay: 0.2 }}
-      className="fixed left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%] w-[80%] flex justify-center flex-wrap py-3  border-border border-2 bg-background"
+      className="fixed left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%] md:w-[30%] md:py-12 w-[80%] flex justify-center flex-wrap py-3  border-border border-2 bg-background"
     >
       <h1 className="text-4xl font-bold text-center">
         You{" "}
