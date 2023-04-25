@@ -32,7 +32,8 @@ export const getLevelOfCorrection = (
       }
 
       const length = indexesInPos.length;
-      if (length < numberOfLetters) return "bg-[#B59F3B]";
+      console.log(length, numberOfLetters, "length");
+      if (length <= numberOfLetters) return "bg-[#B59F3B]";
     }
     return "bg-border";
     //   letterMap.set(val, (letterMap.get(val) || 0) + 1);
