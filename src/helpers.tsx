@@ -11,17 +11,28 @@ export const getLevelOfCorrection = (
   RIGHT_ANSWER: string,
   letter: string,
   indexMap: Map<string, number[]>,
-  letterMap: Map<string, number>
+  letterMap: Map<string, number>,
+  currentGuess: string[]
 ): string => {
   if (letter.length === 0) return " border-border border-2";
 
-  if (RIGHT_ANSWER.split("")[index] === letter) return "bg-[#538D4E] ";
+  if (RIGHT_ANSWER.split("")[index] === letter) {
+    indexMap.set(letter, [...(indexMap.get(letter) || []), index]);
+    return "bg-[#538D4E] ";
+  }
   if (RIGHT_ANSWER.includes(letter)) {
     const numberOfLetters = letterMap.get(letter) || 0;
     const lengthOfIndexArray = indexMap.get(letter)?.length || 0;
     if (lengthOfIndexArray < numberOfLetters) {
       indexMap.set(letter, [...(indexMap.get(letter) || []), index]);
-      return "bg-[#B59F3B]";
+      const indexesInPos = new Array<number>();
+      // should not reutrn yellow when the green is in position
+      for (const newIndex of indexMap.get(letter) || []) {
+        if (currentGuess[newIndex] === letter) indexesInPos.push(newIndex);
+      }
+
+      const length = indexesInPos.length;
+      if (length < numberOfLetters) return "bg-[#B59F3B]";
     }
     return "bg-border";
     //   letterMap.set(val, (letterMap.get(val) || 0) + 1);
@@ -108,7 +119,14 @@ const GridRow = ({
             className={` ${
               current
                 ? "border-border border-2"
-                : getLevelOfCorrection(index, answer, val, indexMap, letterMap)
+                : getLevelOfCorrection(
+                    index,
+                    answer,
+                    val,
+                    indexMap,
+                    letterMap,
+                    newArr
+                  )
             }  flex items-center justify-center   rounded-sm w-52     h-52 `}
           >
             <h1 className="font-bold text-2xl">{val.toUpperCase()}</h1>

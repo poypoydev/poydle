@@ -45,8 +45,9 @@ const EndComponent = ({
         )}
       </h1>
       {!won ? (
-        <div className="mt-3 text-xl">
-          Correct answer was <span className="font-semibold">{answer}</span>
+        <div className="mt-3 text-xl text-center">
+          Correct answer was <span className="font-semibold">{answer}</span>.{" "}
+          Come back tomorrow to try your luck again.
         </div>
       ) : (
         <div className="mt-3 text-center  px-5 text-xl">

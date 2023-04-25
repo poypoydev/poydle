@@ -72,7 +72,7 @@ const App = () => {
         answer={RIGHT_ANSWER}
         guesses={allGuesses}
       />
-
+      {/* <p>{RIGHT_ANSWER}</p> */}
       {!canPlay ? (
         <EndComponent alreadyPlayed />
       ) : (
