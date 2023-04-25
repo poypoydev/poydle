@@ -8,7 +8,7 @@ const Grid = ({
   answer: string;
 }) => {
   return (
-    <div className="flex gap-5 w-[40%] my-1 items-center justify-center  flex-wrap ">
+    <div className="flex gap-5 py-2 my-8   items-center justify-center  flex-wrap ">
       {mapThroughGuesses(guesses, currentGuess, answer)}
       {/* <GridRow empty={false} current value={currentGuess} /> */}
     </div>
@@ -90,10 +90,24 @@ const mapThroughGuesses = (
   returnValue[guesses.length] = current;
   return returnValue.map((val, index) => {
     // if (returnValue[guesses.length])
-    //   return <GridRow empty={false} current value={current} />;
-    if (index === guesses.length)
-      return <GridRow answer={answer} empty={false} current value={current} />;
-    if (val.length === 0) return <GridRow answer={answer} empty />;
-    return <GridRow answer={answer} empty={false} value={val} />;
+    //   return <GridRow empty={false} current value={current} />
+    console.log(val, index, guesses.includes(answer));
+    if (index === 6) return;
+    if (index === guesses.length && !guesses.includes(answer))
+      return (
+        <GridRow
+          key={index}
+          answer={answer}
+          empty={false}
+          current
+          value={current}
+        />
+      );
+    if (val.length === 0) {
+      console.log("returned this");
+      return <GridRow key={index} answer={answer} empty />;
+    }
+
+    return <GridRow key={index} answer={answer} empty={false} value={val} />;
   });
 };
