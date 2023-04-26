@@ -1,6 +1,7 @@
 import { Delete } from "lucide-react";
 import type { ReactNode } from "react";
-import { VALID_GUESSES, alphabet } from "../answers";
+import { alphabet } from "~/utils/answers";
+import wordExists from "word-exists";
 
 const firstRow: string[] = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
 const secondRow: string[] = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
@@ -24,6 +25,10 @@ const getBackgroundColor = (
   let returnVal = "bg-border";
 
   for (const guess of guesses) {
+    // console.log(guess.includes(letter.toLowerCase()));
+    if (guess.includes(letter.toLowerCase())) {
+      returnVal = "bg-border bg-opacity-50";
+    }
     const guessArr = guess.split("");
 
     if (
@@ -68,8 +73,8 @@ const Keyboard = ({
     if (key === "Enter") {
       return setCurrentGuess((prevstring) => {
         if (prevstring.length !== 5) return prevstring;
-        VALID_GUESSES.includes(prevstring);
-        if (!VALID_GUESSES.includes(prevstring)) return prevstring;
+
+        if (!wordExists(prevstring)) return prevstring;
         //api.dictionaryapi.dev/api/v2/entries/en/jawns
 
         setAllGuesses((prev) => {
@@ -93,7 +98,7 @@ const Keyboard = ({
     }
   };
   return (
-    <div className="flex my-10 md:my-8 justify-center gap-2 flex-col">
+    <div className="my-10 flex flex-col justify-center gap-2 md:my-8">
       <div className="flex justify-center gap-2">
         {firstRow.map((letter) => (
           <KeyboardButton
@@ -165,7 +170,7 @@ const KeyboardButton = ({
   return (
     <button
       onClick={onClick}
-      className={`md:p-4 px-2  py-3 rounded-md ${getBackgroundColor(
+      className={`rounded-md px-2  py-3 md:p-4 ${getBackgroundColor(
         answer,
         letter,
         guesses

@@ -1,24 +1,26 @@
 import { useEffect, useState } from "react";
-import Grid from "./components/Grid";
-import { VALID_GUESSES, alphabet, answers } from "./answers";
-import Header from "./components/Header";
-import EndComponent from "./components/EndComponent";
-import Keyboard from "./components/Keyboard";
 
-const App = () => {
+import type { NextPage } from "next";
+import { alphabet, answers } from "~/utils/answers";
+import Header from "~/components/Header";
+import Grid from "~/components/Grid";
+import Keyboard from "~/components/Keyboard";
+import EndComponent from "~/components/EndComponent";
+import wordExists from "word-exists";
+import { api } from "~/utils/api";
+
+const Home: NextPage = () => {
   const [allGuesses, setAllGuesses] = useState<string[]>([]);
   const [currentGuess, setCurrentGuess] = useState<string>("");
   const [canPlay, setCanPlay] = useState<boolean>(true);
-  const [RIGHT_ANSWER] = useState<string>(
-    answers[Math.floor(Math.random() * answers.length)]
-  );
+  const { data } = api.word.hello.useQuery();
 
   const keyDown = (key: string) => {
     if (key === "Enter") {
       return setCurrentGuess((prevstring) => {
         if (prevstring.length !== 5) return prevstring;
-        VALID_GUESSES.includes(prevstring);
-        if (!VALID_GUESSES.includes(prevstring)) return prevstring;
+
+        if (!wordExists(prevstring)) return prevstring;
         //api.dictionaryapi.dev/api/v2/entries/en/jawns
 
         setAllGuesses((prev) => {
@@ -66,7 +68,7 @@ const App = () => {
       <Header />
       <Grid
         currentGuess={currentGuess}
-        answer={RIGHT_ANSWER}
+        answer={data?.word || "hello"}
         guesses={allGuesses}
       />
 
@@ -74,17 +76,18 @@ const App = () => {
         setAllGuesses={setAllGuesses}
         setCurrentGuess={setCurrentGuess}
         guesses={allGuesses}
-        answer={RIGHT_ANSWER}
+        answer={data?.word || "hello"}
       />
       {/* <p>{RIGHT_ANSWER}</p> */}
       {!canPlay ? (
         <EndComponent alreadyPlayed />
       ) : (
-        (allGuesses.includes(RIGHT_ANSWER) || allGuesses.length === 6) && (
+        (allGuesses.includes(data?.word || "hello") ||
+          allGuesses.length === 6) && (
           <EndComponent
             alreadyPlayed={false}
-            answer={RIGHT_ANSWER}
-            won={allGuesses.includes(RIGHT_ANSWER)}
+            answer={data?.word || "hello"}
+            won={allGuesses.includes(data?.word || "hello")}
           />
         )
       )}
@@ -92,4 +95,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Home;

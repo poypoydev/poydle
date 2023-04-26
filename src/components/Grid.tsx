@@ -1,4 +1,4 @@
-import { mapThroughGuesses } from "../helpers";
+import { mapThroughGuesses } from "./helpers/helpers";
 
 const Grid = ({
   guesses,
@@ -10,7 +10,7 @@ const Grid = ({
   answer: string;
 }) => {
   return (
-    <div className="flex gap-5 py-2 my-8   items-center justify-center  flex-wrap ">
+    <div className="my-8 flex flex-wrap items-center   justify-center gap-5  py-2 ">
       {mapThroughGuesses(guesses, currentGuess, answer)}
       {/* <GridRow empty={false} current value={currentGuess} /> */}
     </div>
