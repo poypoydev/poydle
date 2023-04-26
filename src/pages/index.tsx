@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import type { NextPage } from "next";
-import { alphabet, answers } from "~/utils/answers";
+import { alphabet } from "~/utils/answers";
 import Header from "~/components/Header";
 import Grid from "~/components/Grid";
 import Keyboard from "~/components/Keyboard";
@@ -51,7 +51,7 @@ const Home: NextPage = () => {
     const alreadyPlayed = localStorage.getItem("last-played");
     if (alreadyPlayed) {
       const currDate = new Date();
-      const parsedData = Date.parse(alreadyPlayed as string);
+      const parsedData = Date.parse(alreadyPlayed);
       const Difference_In_Time = currDate.getTime() - parsedData;
 
       // To calculate the no. of days between two dates

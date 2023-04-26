@@ -17,8 +17,7 @@ export const wordExists = (text: string): boolean => {
   const dictObject: string[] | undefined = dictionary[cleaned.slice(0, 2)];
   if (!dictObject) return false;
 
-  const exists = dictObject as string[];
-  if (exists.includes(cleaned)) return true;
+  if (dictObject.includes(cleaned)) return true;
 
   return false;
 };
