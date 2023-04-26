@@ -4,6 +4,6 @@
 
 @layer base {
   body {
-    @apply bg-background min-h-screen w-screen text-white;
+    @apply min-h-screen w-screen overflow-hidden bg-background text-white;
   }
 }

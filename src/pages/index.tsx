@@ -9,11 +9,13 @@ import EndComponent from "~/components/EndComponent";
 
 import { api } from "~/utils/api";
 import { wordExists } from "~/utils/wordexists";
+import Error from "~/components/Error";
 
 const Home: NextPage = () => {
   const [allGuesses, setAllGuesses] = useState<string[]>([]);
   const [currentGuess, setCurrentGuess] = useState<string>("");
   const [canPlay, setCanPlay] = useState<boolean>(true);
+  const [error, displayError] = useState<boolean>(false);
   const { data } = api.word.hello.useQuery();
 
   const keyDown = (key: string) => {
@@ -21,7 +23,11 @@ const Home: NextPage = () => {
       return setCurrentGuess((prevstring) => {
         if (prevstring.length !== 5) return prevstring;
 
-        if (!wordExists(prevstring)) return prevstring;
+        if (!wordExists(prevstring)) {
+          displayError(true);
+          setTimeout(() => displayError(false), 2500);
+          return prevstring;
+        }
         //api.dictionaryapi.dev/api/v2/entries/en/jawns
 
         setAllGuesses((prev) => {
@@ -78,8 +84,11 @@ const Home: NextPage = () => {
         setCurrentGuess={setCurrentGuess}
         guesses={allGuesses}
         answer={data?.word || "hello"}
+        displayError={displayError}
       />
+
       {/* <p>{RIGHT_ANSWER}</p> */}
+      <Error show={error} />
       {!canPlay ? (
         <EndComponent alreadyPlayed />
       ) : (

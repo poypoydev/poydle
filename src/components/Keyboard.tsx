@@ -61,11 +61,13 @@ const Keyboard = ({
   answer,
   setCurrentGuess,
   setAllGuesses,
+  displayError,
 }: {
   guesses: string[];
   answer: string;
   setCurrentGuess: React.Dispatch<React.SetStateAction<string>>;
   setAllGuesses: React.Dispatch<React.SetStateAction<string[]>>;
+  displayError: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const keyDown = (key: string) => {
     key;
@@ -74,7 +76,11 @@ const Keyboard = ({
       return setCurrentGuess((prevstring: string) => {
         if (prevstring.length !== 5) return prevstring;
 
-        if (!wordExists(prevstring)) return prevstring;
+        if (!wordExists(prevstring)) {
+          displayError(true);
+          setTimeout(() => displayError(false), 2500);
+          return prevstring;
+        }
         //api.dictionaryapi.dev/api/v2/entries/en/jawns
 
         setAllGuesses((prev) => {
@@ -98,7 +104,7 @@ const Keyboard = ({
     }
   };
   return (
-    <div className="my-10 flex flex-col justify-center gap-2 md:my-8">
+    <div className="my-8 flex flex-col justify-center gap-2 ">
       <div className="flex justify-center gap-2">
         {firstRow.map((letter, index) => (
           <KeyboardButton
