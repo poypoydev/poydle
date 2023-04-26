@@ -37,9 +37,6 @@ dependencies:
   superjson:
     specifier: 1.12.2
     version: 1.12.2
-  word-exists:
-    specifier: ^1.0.0
-    version: 1.0.0
   zod:
     specifier: ^3.21.4
     version: 3.21.4
@@ -2935,10 +2932,6 @@ packages:
     dependencies:
       isexe: 2.0.0
     dev: true
-
-  /word-exists@1.0.0:
-    resolution: {integrity: sha512-uvBrbg1bjPzist7dMwRLuOn4TZojTOUgocFFbRft+RPGZuFpzuNO32PXHIKOPFKeocItfCPCkw/Nic09fKqOSA==}
-    dev: false
 
   /word-wrap@1.2.3:
     resolution: {integrity: sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ==}

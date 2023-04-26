@@ -6,8 +6,9 @@ import Header from "~/components/Header";
 import Grid from "~/components/Grid";
 import Keyboard from "~/components/Keyboard";
 import EndComponent from "~/components/EndComponent";
-import wordExists from "word-exists";
+
 import { api } from "~/utils/api";
+import { wordExists } from "~/utils/wordexists";
 
 const Home: NextPage = () => {
   const [allGuesses, setAllGuesses] = useState<string[]>([]);

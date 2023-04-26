@@ -1,7 +1,7 @@
 import { Delete } from "lucide-react";
 import type { ReactNode } from "react";
 import { alphabet } from "~/utils/answers";
-import wordExists from "word-exists";
+import { wordExists } from "~/utils/wordexists";
 
 const firstRow: string[] = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
 const secondRow: string[] = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
@@ -71,7 +71,7 @@ const Keyboard = ({
     key;
 
     if (key === "Enter") {
-      return setCurrentGuess((prevstring) => {
+      return setCurrentGuess((prevstring: string) => {
         if (prevstring.length !== 5) return prevstring;
 
         if (!wordExists(prevstring)) return prevstring;
