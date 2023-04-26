@@ -93,7 +93,7 @@ const Keyboard = ({
     }
   };
   return (
-    <div className="flex justify-center gap-2 flex-col">
+    <div className="flex my-16 md:my-8 justify-center gap-2 flex-col">
       <div className="flex justify-center gap-2">
         {firstRow.map((letter) => (
           <KeyboardButton
@@ -165,7 +165,7 @@ const KeyboardButton = ({
   return (
     <button
       onClick={onClick}
-      className={`p-4 rounded-md ${getBackgroundColor(
+      className={`md:p-4 px-[10px]  py-4 rounded-md ${getBackgroundColor(
         answer,
         letter,
         guesses
