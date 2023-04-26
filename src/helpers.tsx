@@ -32,7 +32,7 @@ export const getLevelOfCorrection = (
       }
 
       const length = indexesInPos.length;
-      console.log(length, numberOfLetters, "length");
+
       if (length <= numberOfLetters) return "bg-[#B59F3B]";
     }
     return "bg-border";
@@ -54,12 +54,12 @@ export const mapThroughGuesses = (
     returnValue.push("");
   }
 
-  console.log(guesses.length, guesses, current, "guesses");
+  guesses.length, guesses, current, "guesses";
   returnValue[guesses.length] = current;
   return returnValue.map((val, index) => {
     // if (returnValue[guesses.length])
     //   return <GridRow empty={false} current value={current} />
-    console.log(val, index, guesses.includes(answer));
+
     if (index === 6) return;
     if (index === guesses.length && !guesses.includes(answer))
       return (
@@ -73,7 +73,7 @@ export const mapThroughGuesses = (
       );
 
     if (val.length === 0) {
-      console.log("returned this");
+      ("returned this");
       return <GridRow key={index} answer={answer} empty />;
     }
 

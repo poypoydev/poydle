@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import Grid from "./components/Grid";
-import { VALID_GUESSES, answers } from "./answers";
+import { VALID_GUESSES, alphabet, answers } from "./answers";
 import Header from "./components/Header";
 import EndComponent from "./components/EndComponent";
-
-const alphabet = "abcdefghijklmnopqrstuvwxyz";
+import Keyboard from "./components/Keyboard";
 
 const App = () => {
   const [allGuesses, setAllGuesses] = useState<string[]>([]);
@@ -14,18 +13,16 @@ const App = () => {
     answers[Math.floor(Math.random() * answers.length)]
   );
 
-  const keyDown = ({ key }: { key: string }) => {
-    console.log(key);
-
+  const keyDown = (key: string) => {
     if (key === "Enter") {
       return setCurrentGuess((prevstring) => {
         if (prevstring.length !== 5) return prevstring;
-        console.log(VALID_GUESSES.includes(prevstring));
+        VALID_GUESSES.includes(prevstring);
         if (!VALID_GUESSES.includes(prevstring)) return prevstring;
         //api.dictionaryapi.dev/api/v2/entries/en/jawns
 
         setAllGuesses((prev) => {
-          console.log(prev.length);
+          prev.length;
           if (prev.length === 6) return prev;
           return [...prev, prevstring];
         });
@@ -46,7 +43,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    window.addEventListener("keydown", keyDown);
+    window.addEventListener("keydown", (e) => keyDown(e.key));
 
     const alreadyPlayed = localStorage.getItem("last-played");
     if (alreadyPlayed) {
@@ -56,12 +53,12 @@ const App = () => {
 
       // To calculate the no. of days between two dates
       var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-      console.log(Difference_In_Days);
+      Difference_In_Days;
       if (Difference_In_Days <= 1) setCanPlay(false);
     }
 
     return () => {
-      window.removeEventListener("keydown", keyDown);
+      window.removeEventListener("keydown", (e) => keyDown(e.key));
     };
   }, []);
   return (
@@ -71,6 +68,13 @@ const App = () => {
         currentGuess={currentGuess}
         answer={RIGHT_ANSWER}
         guesses={allGuesses}
+      />
+
+      <Keyboard
+        setAllGuesses={setAllGuesses}
+        setCurrentGuess={setCurrentGuess}
+        guesses={allGuesses}
+        answer={RIGHT_ANSWER}
       />
       {/* <p>{RIGHT_ANSWER}</p> */}
       {!canPlay ? (

@@ -1,3 +1,5 @@
+export const alphabet = "abcdefghijklmnopqrstuvwxyz";
+
 export const answers = [
   "which",
   "there",

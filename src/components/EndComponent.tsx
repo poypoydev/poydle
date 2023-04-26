@@ -11,7 +11,7 @@ const EndComponent = ({
   alreadyPlayed: boolean;
 }) => {
   useEffect(() => {
-    console.log(alreadyPlayed);
+    alreadyPlayed;
     !alreadyPlayed &&
       localStorage.setItem("last-played", new Date().toISOString());
   }, []);
