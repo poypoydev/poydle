@@ -51,10 +51,10 @@ const Home: NextPage = () => {
     if (alreadyPlayed) {
       const currDate = new Date();
       const parsedData = Date.parse(alreadyPlayed as string);
-      var Difference_In_Time = currDate.getTime() - parsedData;
+      const Difference_In_Time = currDate.getTime() - parsedData;
 
       // To calculate the no. of days between two dates
-      var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+      const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
       Difference_In_Days;
       if (Difference_In_Days <= 1) setCanPlay(false);
     }

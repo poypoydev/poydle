@@ -102,7 +102,7 @@ const Keyboard = ({
       <div className="flex justify-center gap-2">
         {firstRow.map((letter, index) => (
           <KeyboardButton
-            key={index + "first"}
+            key={`${index}first`}
             onClick={() => keyDown(letter)}
             guesses={guesses}
             answer={answer}
@@ -115,7 +115,7 @@ const Keyboard = ({
       <div className="flex justify-center gap-2">
         {secondRow.map((letter, index) => (
           <KeyboardButton
-            key={index + "second"}
+            key={`${index}second`}
             onClick={() => keyDown(letter)}
             guesses={guesses}
             answer={answer}
@@ -130,7 +130,7 @@ const Keyboard = ({
           if (letter !== "Backspace")
             return (
               <KeyboardButton
-                key={index + "third"}
+                key={`${index}third`}
                 onClick={() => keyDown(letter)}
                 guesses={guesses}
                 answer={answer}
@@ -141,7 +141,7 @@ const Keyboard = ({
             );
           return (
             <KeyboardButton
-              key={index + "third"}
+              key={`${index}third`}
               onClick={() => keyDown(letter)}
               guesses={guesses}
               answer={answer}

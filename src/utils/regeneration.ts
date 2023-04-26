@@ -43,7 +43,7 @@ const getWordOfTheDay = (): string => {
 
   cached_date = date; // Cache the date
   const rng = seedrandom(getDayDiff(date).toString());
-  let idx: number = Math.floor(rng() * answers.length);
+  const idx: number = Math.floor(rng() * answers.length);
   cached_idx = idx; // Cache the index.
   return answers[idx] as string;
 };
