@@ -94,12 +94,12 @@ const GridRow = ({
 }) => {
   if (empty) {
     return (
-      <div className="w-[85%] bg-ble  h-10  flex justify-center gap-2 my-1  ">
-        <div className="border-border border-2 rounded-sm w-52    h-52 "></div>
-        <div className="border-border border-2 rounded-sm w-52   h-52"></div>
-        <div className="border-border border-2 rounded-sm w-52   h-52"></div>
-        <div className="border-border border-2 rounded-sm w-52     h-52"></div>
-        <div className="border-border border-2 rounded-sm w-52    h-52"></div>
+      <div className="w-[85%] bg-ble  h-10  flex justify-center gap-1 md:gap-2  ">
+        <div className="border-border border-2 rounded-sm md:md:w-52 h-10 w-10    md:md:h-52 "></div>
+        <div className="border-border border-2 rounded-sm md:w-52 h-10 w-10   md:h-52"></div>
+        <div className="border-border border-2 rounded-sm md:w-52 h-10 w-10  md:h-52"></div>
+        <div className="border-border border-2 rounded-sm md:w-52  h-10 w-10   md:h-52"></div>
+        <div className="border-border border-2 rounded-sm md:w-52  h-10 w-10  md:h-52"></div>
       </div>
     );
   }
@@ -113,7 +113,7 @@ const GridRow = ({
   const indexMap = new Map<string, number[]>();
   const letterMap = countLetters(answer);
   return (
-    <div className="w-[85%]   h-10  flex justify-center gap-2 my-1   ">
+    <div className="w-[85%]   h-10  flex justify-center gap-1 md:gap-2   ">
       {newArr.map((val, index) => {
         return (
           <div
@@ -128,7 +128,7 @@ const GridRow = ({
                     letterMap,
                     newArr
                   )
-            }  flex items-center justify-center   rounded-sm w-52     h-52 `}
+            }  flex items-center justify-center   rounded-sm md:w-52 h-10 w-10    md:h-52 `}
           >
             <h1 className="font-bold text-2xl">{val.toUpperCase()}</h1>
           </div>
