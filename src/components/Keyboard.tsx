@@ -1,5 +1,5 @@
 import { Delete } from "lucide-react";
-import { FC, ReactNode } from "react";
+import type { ReactNode } from "react";
 import { VALID_GUESSES, alphabet } from "../answers";
 
 const firstRow: string[] = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
