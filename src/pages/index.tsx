@@ -19,6 +19,7 @@ const Home: NextPage = () => {
   const { data } = api.word.hello.useQuery();
 
   const keyDown = (key: string) => {
+    if (!canPlay) return;
     if (key === "Enter") {
       return setCurrentGuess((prevstring) => {
         if (prevstring.length !== 5) return prevstring;
@@ -52,10 +53,9 @@ const Home: NextPage = () => {
   };
 
   useEffect(() => {
-    canPlay && window.addEventListener("keydown", (e) => keyDown(e.key));
-
     const alreadyPlayed = localStorage.getItem("last-played");
     if (alreadyPlayed) {
+      setCanPlay(false);
       const currDate = new Date();
       const parsedData = Date.parse(alreadyPlayed);
       const Difference_In_Time = currDate.getTime() - parsedData;
@@ -64,6 +64,10 @@ const Home: NextPage = () => {
       const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
       Difference_In_Days;
       if (Difference_In_Days <= 1) setCanPlay(false);
+    } else {
+      if (canPlay) {
+        window.addEventListener("keydown", (e) => keyDown(e.key));
+      }
     }
 
     return () => {
@@ -91,11 +95,12 @@ const Home: NextPage = () => {
       {/* <p>{RIGHT_ANSWER}</p> */}
       <Error show={error} />
       {!canPlay ? (
-        <EndComponent alreadyPlayed />
+        <EndComponent setCanPlay={setCanPlay} alreadyPlayed />
       ) : (
         (allGuesses.includes(data?.word || "hello") ||
           allGuesses.length === 6) && (
           <EndComponent
+            setCanPlay={setCanPlay}
             alreadyPlayed={false}
             answer={data?.word || "hello"}
             won={allGuesses.includes(data?.word || "hello")}
