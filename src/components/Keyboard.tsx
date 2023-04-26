@@ -62,15 +62,17 @@ const Keyboard = ({
   setCurrentGuess,
   setAllGuesses,
   displayError,
+  canPlay,
 }: {
   guesses: string[];
   answer: string;
   setCurrentGuess: React.Dispatch<React.SetStateAction<string>>;
   setAllGuesses: React.Dispatch<React.SetStateAction<string[]>>;
   displayError: React.Dispatch<React.SetStateAction<boolean>>;
+  canPlay: boolean;
 }) => {
   const keyDown = (key: string) => {
-    key;
+    if (!canPlay) return;
 
     if (key === "Enter") {
       return setCurrentGuess((prevstring: string) => {

@@ -52,7 +52,7 @@ const Home: NextPage = () => {
   };
 
   useEffect(() => {
-    window.addEventListener("keydown", (e) => keyDown(e.key));
+    canPlay && window.addEventListener("keydown", (e) => keyDown(e.key));
 
     const alreadyPlayed = localStorage.getItem("last-played");
     if (alreadyPlayed) {
@@ -85,6 +85,7 @@ const Home: NextPage = () => {
         guesses={allGuesses}
         answer={data?.word || "hello"}
         displayError={displayError}
+        canPlay={canPlay}
       />
 
       {/* <p>{RIGHT_ANSWER}</p> */}
