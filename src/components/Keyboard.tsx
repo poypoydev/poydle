@@ -88,6 +88,19 @@ const Keyboard = ({
         setAllGuesses((prev) => {
           prev.length;
           if (prev.length === 6) return prev;
+          const oldLocalStorage = localStorage.getItem("current-guesses");
+          if (!oldLocalStorage) {
+            localStorage.setItem(
+              "current-guesses",
+              JSON.stringify([prevstring])
+            );
+          } else {
+            localStorage.setItem(
+              "current-guesses",
+              JSON.stringify([...prev, prevstring])
+            );
+          }
+
           return [...prev, prevstring];
         });
         return "";

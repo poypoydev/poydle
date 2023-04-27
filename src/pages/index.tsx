@@ -10,13 +10,14 @@ import EndComponent from "~/components/EndComponent";
 import { api } from "~/utils/api";
 import { wordExists } from "~/utils/wordexists";
 import Error from "~/components/Error";
+import { parseLocalStorage } from "~/utils/parseGuesses";
 
 const Home: NextPage = () => {
   const [allGuesses, setAllGuesses] = useState<string[]>([]);
   const [currentGuess, setCurrentGuess] = useState<string>("");
   const [canPlay, setCanPlay] = useState<boolean>(true);
   const [error, displayError] = useState<boolean>(false);
-  const { data } = api.word.hello.useQuery();
+  const { data, status } = api.word.hello.useQuery();
 
   const keyDown = (key: string) => {
     if (!canPlay) return;
@@ -34,6 +35,19 @@ const Home: NextPage = () => {
         setAllGuesses((prev) => {
           prev.length;
           if (prev.length === 6) return prev;
+          const oldLocalStorage = localStorage.getItem("current-guesses");
+          if (!oldLocalStorage) {
+            localStorage.setItem(
+              "current-guesses",
+              JSON.stringify([prevstring])
+            );
+          } else {
+            localStorage.setItem(
+              "current-guesses",
+              JSON.stringify([...prev, prevstring])
+            );
+          }
+
           return [...prev, prevstring];
         });
         return "";
@@ -53,9 +67,12 @@ const Home: NextPage = () => {
   };
 
   useEffect(() => {
+    console.log(status);
+    // if (status !== "success") return;
     const alreadyPlayed = localStorage.getItem("last-played");
+    setAllGuesses(parseLocalStorage("current-guesses"));
     if (alreadyPlayed) {
-      setCanPlay(false);
+      setCanPlay(true);
       const currDate = new Date();
       const parsedData = Date.parse(alreadyPlayed);
       const Difference_In_Time = currDate.getTime() - parsedData;
@@ -74,6 +91,18 @@ const Home: NextPage = () => {
       window.removeEventListener("keydown", (e) => keyDown(e.key));
     };
   }, []);
+
+  useEffect(() => {
+    if (allGuesses.includes(data?.word as string) || allGuesses.length === 6) {
+      localStorage.setItem("last-played", new Date().toString());
+    }
+  }, [allGuesses]);
+
+  if (status !== "success") {
+    console.log(status);
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <Header />
@@ -94,18 +123,17 @@ const Home: NextPage = () => {
 
       {/* <p>{RIGHT_ANSWER}</p> */}
       <Error show={error} />
-      {!canPlay ? (
+      {!canPlay && !allGuesses.includes(data?.word as string) && (
         <EndComponent setCanPlay={setCanPlay} alreadyPlayed />
-      ) : (
-        (allGuesses.includes(data?.word || "hello") ||
-          allGuesses.length === 6) && (
-          <EndComponent
-            setCanPlay={setCanPlay}
-            alreadyPlayed={false}
-            answer={data?.word || "hello"}
-            won={allGuesses.includes(data?.word || "hello")}
-          />
-        )
+      )}
+      {(allGuesses.includes(data?.word as string) ||
+        allGuesses.length === 6) && (
+        <EndComponent
+          setCanPlay={setCanPlay}
+          alreadyPlayed={false}
+          answer={data?.word as string}
+          won={allGuesses.includes(data?.word as string)}
+        />
       )}
     </>
   );

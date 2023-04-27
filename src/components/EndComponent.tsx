@@ -13,10 +13,11 @@ const EndComponent = ({
   setCanPlay: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   useEffect(() => {
-    if (!alreadyPlayed) {
-      localStorage.setItem("last-played", new Date().toISOString());
-      setCanPlay(false);
-    }
+    // if (!alreadyPlayed) {
+    //   localStorage.setItem("last-played", new Date().toISOString());
+    // }
+    localStorage.setItem("current-guesses", JSON.stringify([]));
+    console.log(won, alreadyPlayed);
   }, []);
 
   if (alreadyPlayed) {

@@ -45,6 +45,7 @@ const getWordOfTheDay = (): string => {
   const rng = seedrandom(getDayDiff(date).toString());
   const idx: number = Math.floor(rng() * answers.length);
   cached_idx = idx; // Cache the index.
+  // localStorage.setItem("current-guesses", "[]");
   return answers[idx] as string;
 };
 export { getWordOfTheDay };
