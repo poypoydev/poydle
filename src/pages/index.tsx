@@ -123,16 +123,15 @@ const Home: NextPage = () => {
 
       {/* <p>{RIGHT_ANSWER}</p> */}
       <Error show={error} />
-      {!canPlay && !allGuesses.includes(data?.word as string) && (
+      {!canPlay && !allGuesses.includes(data?.word) && (
         <EndComponent setCanPlay={setCanPlay} alreadyPlayed />
       )}
-      {(allGuesses.includes(data?.word as string) ||
-        allGuesses.length === 6) && (
+      {(allGuesses.includes(data?.word) || allGuesses.length === 6) && (
         <EndComponent
           setCanPlay={setCanPlay}
           alreadyPlayed={false}
-          answer={data?.word as string}
-          won={allGuesses.includes(data?.word as string)}
+          answer={data?.word}
+          won={allGuesses.includes(data?.word)}
         />
       )}
     </>
