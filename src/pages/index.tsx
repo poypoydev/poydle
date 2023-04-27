@@ -11,6 +11,7 @@ import { api } from "~/utils/api";
 import { wordExists } from "~/utils/wordexists";
 import Error from "~/components/Error";
 import { parseLocalStorage } from "~/utils/parseGuesses";
+import Loader from "~/components/Loader";
 
 const Home: NextPage = () => {
   const [allGuesses, setAllGuesses] = useState<string[]>([]);
@@ -100,7 +101,7 @@ const Home: NextPage = () => {
 
   if (status !== "success") {
     console.log(status);
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return (
